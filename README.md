@@ -11,7 +11,7 @@ The repo will deploy:
 
 ![alt Demo Architecture](img/architecture.png)
 
-The demo was inspired by udemy training  LangChain- Develop LLM powered applications with LangChain [see](https://www.udemy.com/).
+The demo was inspired by udemy training  LangChain- Develop LLM powered applications with LangChain [see]([https://www.udemy.com/](https://www.udemy.com/course/langchain/)).
 
 Please Clone this repository on your desktop:
 ```bash
@@ -28,18 +28,18 @@ The demoing execution is fully automated, but before execution, you need to setu
 
 Create a Salesforce Developer account [Signup here](https://developer.salesforce.com/signup)
 Configure Salesforce CDC, [see](https://docs.confluent.io/cloud/current/connectors/cc-salesforce-source-cdc.html#quick-start)
-    * move to setup, click on the wheel (right upper cornner) 
-    * search for Change Data Capture in quick search box in Lightning (left side upper field)
-    * choose entity contact and lead and move to right side (selected entities). The corresponding CDC Name is ContactChangeEvent and LeadChangeEvent
-    * search for apps and click on App Manager and then New Connected App (right upper corner)
-    * enter values for the app, and save, click continue 
-    * click Manager Consumer Details, wait for code via Email and copy consumer key and secret 
-    * The relevant pieces of information are the Consumer Key and the Consumer Secret
-    * Click on Manage and change by edit policies and choose IP Relaxation: Relax IP restrictions
-    * From your personal settings, in the Quick Find box, enter Reset, and then select Reset My Security Token. Click Reset Security Token. The new security token is sent to the email address in your Salesforce personal settings.
-    * new security token is send via email
-    * search for oauth and set under OAuth and openID Connect Setting the Allow OAuth User-name-Password Flows to enable
-    * add connected app to Profile System Administrator: search profile , click on Profiles, edit System Administrator and enable connected app
+* move to setup, click on the wheel (right upper cornner) 
+* search for Change Data Capture in quick search box in Lightning (left side upper field)
+* choose entity contact and lead and move to right side (selected entities). The corresponding CDC Name is ContactChangeEvent and LeadChangeEvent
+* search for apps and click on App Manager and then New Connected App (right upper corner)
+* enter values for the app, and save, click continue 
+* click Manager Consumer Details, wait for code via Email and copy consumer key and secret 
+* The relevant pieces of information are the Consumer Key and the Consumer Secret
+* Click on Manage and change by edit policies and choose IP Relaxation: Relax IP restrictions
+* From your personal settings, in the Quick Find box, enter Reset, and then select Reset My Security Token. Click Reset Security Token. The new security token is sent to the email address in your Salesforce personal settings.
+* new security token is send via email
+* search for oauth and set under OAuth and openID Connect Setting the Allow OAuth User-name-Password Flows to enable
+* add connected app to Profile System Administrator: search profile , click on Profiles, edit System Administrator and enable connected app
 
 You need for the Salesforce CDC Connector all the parameters, so please store them safely.
 
