@@ -28,6 +28,8 @@ The demoing execution is fully automated, but before execution, you need to setu
 
 Create a Salesforce Developer account [Signup here](https://developer.salesforce.com/signup)
 Configure Salesforce CDC, [see](https://docs.confluent.io/cloud/current/connectors/cc-salesforce-source-cdc.html#quick-start)
+Follow my setuo with screenshots [here](setup_salesforce.md)
+High level-Steps:
 * move to setup, click on the wheel (right upper cornner) 
 * search for Change Data Capture in quick search box in Lightning (left side upper field)
 * choose entity contact and lead and move to right side (selected entities). The corresponding CDC Name is ContactChangeEvent and LeadChangeEvent
