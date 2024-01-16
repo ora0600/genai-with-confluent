@@ -1,17 +1,16 @@
 # generative AI with Confluent 
 
-The repo is private. Only for Confluent employees belonging to this rep as contributor.
+This is a real-time gen AI demo with Confluent Cloud. The idea was formulated by [this](https://www.udemy.com/course/langchain/?referralCode=D981B8213164A3EA91AC) awesome training in Udemy by Eden Marco (LangChain- Develop LLM).
+
 The repo will deploy:
 * Confluent CLoud Basic Cluster
 * a fully-managedd Salesforce CDC Connector
-+ Flink SQL Pool
+* Flink SQL Pool
 * 2 Topics with Schema
     * salesforce_contacts - coming for CDC Connector (Salesforce)
     * salesforce_myleads - a transformed format with Flink SQL
 
 ![alt Demo Architecture](img/architecture.png)
-
-The demo was inspired by udemy training  LangChain- Develop LLM powered applications with LangChain [see]([https://www.udemy.com/](https://www.udemy.com/course/langchain/)).
 
 Please Clone this repository on your desktop:
 ```bash
