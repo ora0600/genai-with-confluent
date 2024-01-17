@@ -6,4 +6,4 @@ echo -e "\033];Consume from Confluent Cloud salesforce_myleads topic\007"
 # Consume raw events Terminal 1
 echo "Consume from Confluent Cloud salesforce_myleads topic (ice_breaker langchain LLM AI): "
 source env-vars
-python3 ice_breaker.py -f client.properties -t salesforce_myleads
+python3 ice_breaker.py -f client.properties -from salesforce_myleads -to salesforce_mycalls

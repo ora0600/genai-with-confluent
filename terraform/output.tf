@@ -79,7 +79,7 @@ output "E02_NewLeads" {
 }
 
 output "E03_StartGenAI" {
-  value = "Then start genAI App: python ice_breaker.py -f client.properties -t salesforce_myleads"
+  value = "Then start genAI App: python3 ice_breaker.py -f client.properties -from salesforce_myleads -to salesforce_mycalls"
 }  
 
 output "E04_BlockEnd" {

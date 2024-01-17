@@ -17,7 +17,7 @@ on run argv
     # open third terminal and consume salesfroce_myleads
     tell third session of current tab of current window
         write text "cd " & BASEDIR
-        write text "bash ./01-consumer-salesforce_myleads.sh"
+        write text "bash ./01-consumer-salesforce_calls.sh"
     end tell
   end tell
 end run

@@ -250,6 +250,46 @@ resource "confluent_schema" "avro-salesforce_contacts" {
 }
 
 # --------------------------------------------------------
+# Create Kafka topics for the Ice-Breaker
+# --------------------------------------------------------
+resource "confluent_kafka_topic" "salesforce_mycalls" {
+  kafka_cluster {
+    id = confluent_kafka_cluster.cc_kafka_cluster.id
+  }
+  topic_name    = "salesforce_mycalls"
+  partitions_count   = 1
+  rest_endpoint = confluent_kafka_cluster.cc_kafka_cluster.rest_endpoint
+  credentials {
+    key    = confluent_api_key.app_manager_kafka_cluster_key.id
+    secret = confluent_api_key.app_manager_kafka_cluster_key.secret
+  }
+  lifecycle {
+    prevent_destroy = false
+  }
+}
+
+# --------------------------------------------------------
+# Create schema for the Ice-Breaker topic salesforce_mycalls
+# --------------------------------------------------------
+resource "confluent_schema" "avro-salesforce_mycalls" {
+  schema_registry_cluster {
+    id =confluent_schema_registry_cluster.cc_sr_cluster.id
+  }
+  rest_endpoint = confluent_schema_registry_cluster.cc_sr_cluster.rest_endpoint
+  subject_name = "salesforce_mycalls-value"
+  format = "AVRO"
+  schema = file("./schema/schema-salesforce_mycalls-value-v1.avsc")
+  credentials {
+    key    = confluent_api_key.sr_cluster_key.id
+    secret = confluent_api_key.sr_cluster_key.secret
+  }
+
+  lifecycle {
+    prevent_destroy = false
+  }
+}
+
+# --------------------------------------------------------
 # Create Tags
 # --------------------------------------------------------
 resource "confluent_tag" "pii" {

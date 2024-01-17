@@ -68,10 +68,75 @@ myleads_schema = """
 }
 """
 
+mycalls_schema = """
+{
+  "fields": [
+    {
+      "default": null,
+      "name": "saluation",
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    {
+      "default": null,
+      "name": "firstname",
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    {
+      "default": null,
+      "name": "lastname",
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    {
+      "default": null,
+      "name": "email",
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    {
+      "default": null,
+      "name": "company",
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    {
+      "default": null,
+      "name": "facts",
+      "type": [
+        "null",
+        "string"
+      ]
+    }
+  ],
+  "name": "record",
+  "namespace": "org.apache.flink.avro.generated",
+  "type": "record"
+}
+"""
+
 
 class Myleads(object):
     # Use __slots__ to explicitly declare all data members.
-    __slots__ = ["saluation", "firstname", "lastname", "information", "email", "company"]
+    __slots__ = [
+        "saluation",
+        "firstname",
+        "lastname",
+        "information",
+        "email",
+        "company"
+    ]
 
     def __init__(
         self,
@@ -80,7 +145,7 @@ class Myleads(object):
         lastname=None,
         information=None,
         email=None,
-        company=None,
+        company=None
     ):
         self.saluation = saluation
         self.firstname = firstname
@@ -99,23 +164,57 @@ class Myleads(object):
             lastname=obj["lastname"],
             information=obj["information"],
             email=obj["email"],
-            company=obj["company"],
+            company=obj["company"]
         )
 
     @staticmethod
-    def myleads_to_dict(saluation, firstname, lastname, information, email, company, ctx):
-        return Myleads.to_dict(saluation, firstname, lastname, information, email, company)
+    def myleads_to_dict(myleads, ctx):
+        return dict(saluation=myleads.saluation, firstname=myleads.firstname, lastname=myleads.lastname, information=myleads.information, email=myleads.lastname, company=myleads.company)
 
-    def to_dict(self):
-        return dict(
-            saluation=self.saluation,
-            firstname=self.firstname,
-            lastname=self.lastname,
-            information=self.information,
-            email=self.email,
-            company=self.company,
+# myCalls
+class Mycalls(object):
+    # Use __slots__ to explicitly declare all data members.
+    __slots__ = [
+        "saluation",
+        "firstname",
+        "lastname",
+        "email",
+        "company",
+        "facts"
+    ]
+
+    def __init__(
+        self,
+        saluation=None,
+        firstname=None,
+        lastname=None,
+        email=None,
+        company=None,
+        facts=None
+    ):
+        self.saluation = saluation
+        self.firstname = firstname
+        self.lastname = lastname
+        self.email = email
+        self.company = company
+        self.facts = facts
+
+    @staticmethod
+    def dict_to_mycalls(obj, ctx):
+        if obj is None:
+            return None
+        return Mycalls(
+            saluation=obj["saluation"],
+            firstname=obj["firstname"],
+            lastname=obj["lastname"],
+            email=obj["email"],
+            company=obj["company"],
+            facts=obj["facts"]
         )
 
+    @staticmethod
+    def mycalls_to_dict(mycalls, ctx):
+        return dict(saluation=mycalls.saluation, firstname=mycalls.firstname, lastname=mycalls.lastname, email=mycalls.lastname, company=mycalls.company, facts=mycalls.facts)
 
 def parse_args():
     """Parse command line arguments"""
@@ -131,7 +230,10 @@ def parse_args():
         help="path to Confluent Cloud configuration file",
         required=True,
     )
-    required.add_argument("-t", dest="topic", help="topic name", required=True)
+    required.add_argument(
+        "-from", dest="fromtopic", help="from topic name", required=True
+    )
+    required.add_argument("-to", dest="totopic", help="to topic name", required=True)
     args = parser.parse_args()
 
     return args
