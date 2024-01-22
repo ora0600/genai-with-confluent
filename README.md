@@ -30,7 +30,7 @@ Create a Salesforce Developer account [Signup here](https://developer.salesforce
 Configure Salesforce CDC, [see](https://docs.confluent.io/cloud/current/connectors/cc-salesforce-source-cdc.html#quick-start)
 Follow my setuo with screenshots [here](setup_salesforce.md)
 High level-Steps:
-* move to setup, click on the wheel (right upper cornner) 
+* Switch to Setup menu, click on the wheel (right upper cornner) 
 * search for Change Data Capture in quick search box in Lightning (left side upper field)
 * choose entity contact and lead and move to right side (selected entities). The corresponding CDC Name is ContactChangeEvent and LeadChangeEvent
 * search for apps and click on App Manager and then New Connected App (right upper corner)
@@ -173,5 +173,5 @@ You need an OPenAI Account, with current credit.
 You need a ProxyCurl API Account, with current credits.
 Your need SERP API Account, here you will a starting amount of connections. This was enough in my case.
 
-In  Total I spend 20 $ (OpneAIm ProxyCurl) and I am still not out of credits.
+In  Total I spend 20 $ (Open AI, ProxyCurl) and I am still not out of credits.
 
