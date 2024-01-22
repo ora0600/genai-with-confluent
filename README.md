@@ -7,9 +7,10 @@ The repo will deploy:
 * Confluent CLoud Basic Cluster
 * a fully-managed Salesforce CDC Connector
 * Flink SQL Pool
-* 2 Topics with Schema
+* 3 Topics with Schema
     * salesforce_contacts - coming for CDC Connector (Salesforce)
     * salesforce_myleads - a transformed format with Flink SQL
+    * salesforce_mycalls - myleads added with ice-breaker content/output
 
 ![alt Demo Architecture](img/architecture.png)
 
@@ -26,24 +27,7 @@ The demoing execution is fully automated, but before execution, you need to setu
 
 ## Salesforce developer Login
 
-Create a Salesforce Developer account [Signup here](https://developer.salesforce.com/signup)
-Configure Salesforce CDC, [see](https://docs.confluent.io/cloud/current/connectors/cc-salesforce-source-cdc.html#quick-start)
-Follow my setuo with screenshots [here](setup_salesforce.md)
-High level-Steps:
-* Switch to Setup menu, click on the wheel (right upper cornner) 
-* search for Change Data Capture in quick search box in Lightning (left side upper field)
-* choose entity contact and lead and move to right side (selected entities). The corresponding CDC Name is ContactChangeEvent and LeadChangeEvent
-* search for apps and click on App Manager and then New Connected App (right upper corner)
-* enter values for the app, and save, click continue 
-* click Manager Consumer Details, wait for code via Email and copy consumer key and secret 
-* The relevant pieces of information are the Consumer Key and the Consumer Secret
-* Click on Manage and change by edit policies and choose IP Relaxation: Relax IP restrictions
-* From your personal settings, in the Quick Find box, enter Reset, and then select Reset My Security Token. Click Reset Security Token. The new security token is sent to the email address in your Salesforce personal settings.
-* new security token is send via email
-* search for oauth and set under OAuth and openID Connect Setting the Allow OAuth User-name-Password Flows to enable
-* add connected app to Profile System Administrator: search profile , click on Profiles, edit System Administrator and enable connected app
-
-You need for the Salesforce CDC Connector all the parameters, so please store them safely.
+Follow my setup in Salesforce with screenshots [here](setup_salesforce.md)
 
 ## Confluent Cloud
 
@@ -51,12 +35,12 @@ You need a working account for Confluent Cloud. Sign-up with Confluent Cloud is 
 
 ## Tools
 
+* install kafka or Confluent Platform (we need the tools kafka-avro-consumer-console and kafka-avro-producer-console), [Downlod Confluent Platform](https://www.confluent.io/get-started/?product=self-managed)
+* Local install Confluent CLI, [install the cli](https://docs.confluent.io/confluent-cli/current/install.html) 
 * install terraform on your desktop. [Follow the installation guide](https://developer.hashicorp.com/terraform/tutorials/aws-get-started/install-cli)
 * Install iterm 2, [see](https://iterm2.com/)
-* Local install of [Terraform](https://www.terraform.io) (details below)
-* Local install Confluent CLI, [install the cli](https://docs.confluent.io/confluent-cli/current/install.html) 
 * install Python3 on MacOS: [Downland](https://www.python.org/downloads/macos/) and follow the instructions
-    * Install all the python modules we need;
+* Install all the python modules we need;
 ```bash
 pip3 install confluent_kafka
 pip3 install requests
@@ -117,7 +101,7 @@ To be able to search in Google the correct linkedin Profile URL, we need a API k
 
 Now, put all Keys into `env-vars` file by executing the command:
 ```bash
-cat > $PWD/terraform/env.vars <<EOF
+cat > $PWD/terraform/env-vars <<EOF
 export PYTHONPATH=/YOURPATH
 export OPENAI_API_KEY=YOUR openAI Key
 export PROXYCURL_API_KEY=YOUR ProxyURL Key
