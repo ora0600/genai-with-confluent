@@ -169,7 +169,7 @@ I start with my tests:
 * Enter Carsten Mützlitz in Salesforce as new Lead: It will take around x seconds to complete task, and will finish successfully
 * Enter Kai Waehner in Salesforce as new Lead
   * Chatgpt will break because token limits exceeded
-  * change model to `model_name="gpt-3.5-turbo"` in ice_breaker.py line 135 and restart the client.
+  * change model to `model_name="gpt-4-turbo"` in ice_breaker.py line 135 and restart the client.
   * Re-enter Kai Waehner
   * Now, tokens are not a problem anymore for this case
 
