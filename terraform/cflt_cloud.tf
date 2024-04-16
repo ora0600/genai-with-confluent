@@ -1,3 +1,15 @@
+data "confluent_organization" "main" {}
+
+data "confluent_flink_region" "main" {
+  cloud        = var.cc_cloud_provider
+  region       = var.cc_cloud_region
+}
+
+data "confluent_flink_region" "eu-central-1" {
+  cloud  = var.cc_cloud_provider
+  region = var.cc_cloud_region
+}
+
 # -------------------------------------------------------
 # Confluent Cloud Environment
 # -------------------------------------------------------
@@ -49,6 +61,7 @@ resource "confluent_kafka_cluster" "cc_kafka_cluster" {
 # --------------------------------------------------------
 # Flink Compute Pool
 # --------------------------------------------------------
+
 resource "confluent_flink_compute_pool" "cc_flink_compute_pool" {
   display_name = "${var.cc_dislay_name}-${random_id.id.hex}"
   cloud        = var.cc_cloud_provider
@@ -224,7 +237,7 @@ resource "confluent_api_key" "clients_kafka_cluster_key" {
 # Flink API Keys
 # --------------------------------------------------------
 resource "confluent_api_key" "env-manager-flink-api-key" {
-  display_name = "env-manager-flink-api-${confluent_environment.cc_handson_env.display_name}-key-${random_id.id.hex}"
+  display_name = "app-manager-flink-api-key-${random_id.id.hex}"
   description  = "Flink API Key that is owned by 'env-manager' service account"
   owner {
     id          = confluent_service_account.app_manager.id
@@ -233,9 +246,9 @@ resource "confluent_api_key" "env-manager-flink-api-key" {
   }
 
   managed_resource {
-    id          = "${var.cc_compute_pool_region}"
-    api_version = "fcpm/v2"
-    kind        = "Region"
+    id          = data.confluent_flink_region.eu-central-1.id
+    api_version = data.confluent_flink_region.eu-central-1.api_version
+    kind        = data.confluent_flink_region.eu-central-1.kind
 
     environment {
       id = confluent_environment.cc_handson_env.id

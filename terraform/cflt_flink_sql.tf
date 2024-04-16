@@ -3,13 +3,12 @@
 # Flink SQL: CREATE TABLE salesforce_myleads
 # --------------------------------------------------------
 resource "confluent_flink_statement" "create_salesforce_myleads" {
-  depends_on = [
-    resource.confluent_environment.cc_handson_env,
-    resource.confluent_schema_registry_cluster.cc_sr_cluster,
-    resource.confluent_kafka_cluster.cc_kafka_cluster,
-    resource.confluent_connector.salesforcecdc,
-    resource.confluent_flink_compute_pool.cc_flink_compute_pool
-  ]    
+  organization {
+    id = data.confluent_organization.main.id
+  }   
+  environment {
+    id = confluent_environment.cc_handson_env.id
+  }
   compute_pool {
     id = confluent_flink_compute_pool.cc_flink_compute_pool.id
   }
@@ -21,7 +20,7 @@ resource "confluent_flink_statement" "create_salesforce_myleads" {
     "sql.current-catalog"  = confluent_environment.cc_handson_env.display_name
     "sql.current-database" = confluent_kafka_cluster.cc_kafka_cluster.display_name
   }
-  rest_endpoint   =  confluent_flink_compute_pool.cc_flink_compute_pool.rest_endpoint
+  rest_endpoint   =  data.confluent_flink_region.main.rest_endpoint
   credentials {
     key    = confluent_api_key.env-manager-flink-api-key.id
     secret = confluent_api_key.env-manager-flink-api-key.secret
@@ -30,20 +29,25 @@ resource "confluent_flink_statement" "create_salesforce_myleads" {
   lifecycle {
     prevent_destroy = false
   }
+  depends_on = [
+    resource.confluent_environment.cc_handson_env,
+    resource.confluent_schema_registry_cluster.cc_sr_cluster,
+    resource.confluent_kafka_cluster.cc_kafka_cluster,
+    resource.confluent_connector.salesforcecdc,
+    resource.confluent_flink_compute_pool.cc_flink_compute_pool
+  ]   
 }
 
 # --------------------------------------------------------
 # Flink SQL: INSERT INTO myleads
 # --------------------------------------------------------
 resource "confluent_flink_statement" "insert_myleads" {
-  depends_on = [
-    resource.confluent_environment.cc_handson_env,
-    resource.confluent_schema_registry_cluster.cc_sr_cluster,
-    resource.confluent_kafka_cluster.cc_kafka_cluster,
-    resource.confluent_connector.salesforcecdc,
-    resource.confluent_flink_compute_pool.cc_flink_compute_pool,
-    resource.confluent_flink_statement.create_salesforce_myleads
-  ]    
+  organization {
+    id = data.confluent_organization.main.id
+  }   
+  environment {
+    id = confluent_environment.cc_handson_env.id
+  }
   compute_pool {
     id = confluent_flink_compute_pool.cc_flink_compute_pool.id
   }
@@ -55,7 +59,7 @@ resource "confluent_flink_statement" "insert_myleads" {
     "sql.current-catalog"  = confluent_environment.cc_handson_env.display_name
     "sql.current-database" = confluent_kafka_cluster.cc_kafka_cluster.display_name
   }
-  rest_endpoint   =  confluent_flink_compute_pool.cc_flink_compute_pool.rest_endpoint
+  rest_endpoint = data.confluent_flink_region.main.rest_endpoint
   credentials {
     key    = confluent_api_key.env-manager-flink-api-key.id
     secret = confluent_api_key.env-manager-flink-api-key.secret
@@ -64,4 +68,13 @@ resource "confluent_flink_statement" "insert_myleads" {
   lifecycle {
     prevent_destroy = false
   }
+    depends_on = [
+    resource.confluent_environment.cc_handson_env,
+    resource.confluent_schema_registry_cluster.cc_sr_cluster,
+    resource.confluent_kafka_cluster.cc_kafka_cluster,
+    resource.confluent_connector.salesforcecdc,
+    resource.confluent_flink_compute_pool.cc_flink_compute_pool,
+    resource.confluent_flink_statement.create_salesforce_myleads
+  ] 
+
 }

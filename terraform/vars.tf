@@ -36,7 +36,7 @@ variable "cc_cloud_region" {
 
 variable "cc_env_name" {
   type    = string
-  default = "cmgenai"
+  default = "cm-genAI"
 }
 
 variable "cc_cluster_name" {
